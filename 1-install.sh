@@ -10,7 +10,7 @@ echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
 echo "By Tuxacard (2023)"
-echo ""
+echo "Forfked from Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
 echo "Take care partitions first !"
@@ -42,9 +42,9 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-mkfs.fat -F 32 /dev/$sda1 ;
-mkfs.ext4 -L Arch-root /dev/$sda2
-mkfs.ext4 -L home /dev/$sda3
+mkfs.fat -F 32 /dev/$sda1
+mkfs.ext4 -LF Arch-root /dev/$sda2
+mkfs.ext4 -LF home /dev/$sda3 #Optional
 #mkfs.btrfs -f /dev/$sda2
 #mkfs.btrfs -f /dev/$sda3
 
@@ -52,7 +52,7 @@ mkfs.ext4 -L home /dev/$sda3
 
 mount /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home}
-mount -o defaults,noatime /dev/$sda3 /home
+mount -t ext4 -o defaults,noatime /dev/$sda3 /home
 mount /dev/$sda1 /mnt/boot/efi
 #mount -o compress=zstd:3,ssd,noatime,subvol=@ /dev/$sda2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
@@ -60,7 +60,6 @@ mount /dev/$sda1 /mnt/boot/efi
 #mount -o compress=zstd:3,ssd,noatime,subvol=@home /dev/$sda2 /mnt/home
 #mount -o compress=zstd:3,ssd,noatime,subvol=@snapshots /dev/$sda2 /mnt/.snapshots
 #mount -o compress=zstd:3,ssd,noatime,subvol=@log /dev/$sda2 /mnt/var/log
-
 # mkdir /mnt/vm
 # mount /dev/$sda3 /mnt/vm
 ---------------------------------------------------------
@@ -75,7 +74,9 @@ pacstrap -K /mnt base base-devel git linux linux-firmware linux-zen linux-zen-he
 # Generate fstab
 # ------------------------------------------------------
 genfstab -U /mnt >> /mnt/etc/fstab
+echo 'tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0' >> /mnt/etc/fstab
 cat /mnt/etc/fstab
+read -p "Is this right?" c
 
 # ------------------------------------------------------
 # Install configuration scripts
