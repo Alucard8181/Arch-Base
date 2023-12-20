@@ -1,7 +1,7 @@
 #!/bin/bash
 
 loadkeys hu
-setfont ter-128n
+setfont ter-v18n
 clear
 echo "    _             _       ___           _        _ _ "
 echo "   / \   _ __ ___| |__   |_ _|_ __  ___| |_ __ _| | |"
@@ -10,10 +10,10 @@ echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
 echo "By Tuxacard (2023)"
-echo "Forked from Stephan Raabe-s work"
+echo "Forfed from Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
-echo "Take care partitions first !"
+echo "Take care the partitions first !"
 echo "-----------------------------------------------------"
 echo ""
 echo "Warning: Run this script at your own risk."
@@ -76,7 +76,7 @@ pacstrap -K /mnt base base-devel git linux linux-firmware linux-zen linux-zen-he
 genfstab -U /mnt >> /mnt/etc/fstab
 echo 'tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0' >> /mnt/etc/fstab
 cat /mnt/etc/fstab
-read -p "Is this right?" c
+read -p "I hope this is right......" c
 
 # ------------------------------------------------------
 # Install configuration scripts
@@ -87,6 +87,7 @@ cp 3-yay.sh /mnt/archinstall/
 cp 4-zram.sh /mnt/archinstall/
 cp 5-timeshift.sh /mnt/archinstall/
 cp 6-preload.sh /mnt/archinstall/
+cp 7-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
 
 # ------------------------------------------------------
