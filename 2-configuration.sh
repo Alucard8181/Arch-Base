@@ -11,15 +11,15 @@
 # ------------------------------------------------------
 pause 2
 clear
-keyboardlayout="hu"
-zoneinfo="Europe/Budapest"
-hostname="Arch-Linux"
-username="alucard"
+KEYBOARDLAYOUT="hu"
+ZONEINFO="Europe/Budapest"
+HOSTNAME="Arch-Linux"
+USERNAME="alucard"
 
 # ------------------------------------------------------
 # Set System Time
 # ------------------------------------------------------
-ln -sf /usr/share/zoneinfo/$zoneinfo /etc/localtime
+ln -sf /usr/share/zoneinfo/$ZONEINFO /etc/localtime
 hwclock --systohc
 
 # ------------------------------------------------------
@@ -50,15 +50,15 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 # Set Keyboard
 # ------------------------------------------------------
 echo "FONT=ter-v18n" >> /etc/vconsole.conf
-echo "KEYMAP=$keyboardlayout" >> /etc/vconsole.conf
+echo "KEYMAP=$KEYBOARDLAYOUT" >> /etc/vconsole.conf
 
 # ------------------------------------------------------
 # Set hostname and localhost
 # ------------------------------------------------------
-echo "$hostname" >> /etc/hostname
+echo "$HOSTNAME" >> /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
+echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 clear
 
 # ------------------------------------------------------
@@ -70,9 +70,9 @@ clear
 # ------------------------------------------------------
 # Add User
 # ------------------------------------------------------
-echo "Add user $username"
-useradd -m -G wheel $username
-passwd $username
+echo "Add user $USERNAME"
+useradd -m -G wheel $USERNAME
+passwd $USERNAME
 
 # ------------------------------------------------------
 # Enable System Services
@@ -109,13 +109,13 @@ mkinitcpio -p linux
 # Add user to wheel
 # ------------------------------------------------------
 clear
-echo "Uncomment %wheel group in sudoers (around line 105):"
+echo "Uncomment %wheel group in sudoers (around line 108):"
 echo "Before: #%wheel ALL=(ALL:ALL) ALL"
 echo "After:  %wheel ALL=(ALL:ALL) ALL"
 echo ""
 read -p "Open sudoers now?" c
 EDITOR=micro sudo -E visudo
-usermod -aG wheel $username
+usermod -aG wheel $USERNAME
 
 # ------------------------------------------------------
 # Copy installation scripts to home directory 

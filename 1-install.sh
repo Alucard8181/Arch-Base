@@ -18,6 +18,13 @@ echo "-----------------------------------------------------"
 echo ""
 echo "Warning: Run this script at your own risk."
 
+pacman -Syy
+
+# # Maybe it's required to install the current archlinux keyring
+# if the installation of git fails. Uncomment if needed.
+#pacman -S archlinux-keyring
+#pacman -Syy
+
 # ------------------------------------------------------
 # Sync time
 # ------------------------------------------------------
@@ -26,7 +33,7 @@ timedatectl set-timezone Europe/Budapest
 
 pacman --noconfirm -S reflector
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Syyy
+pacman -Syy
 
 # ------------------------------------------------------
 # Enter partition names

@@ -13,6 +13,7 @@
 # NAME: Preload Installation
 # DESC: Installation script for preload
 # WARNING: Run this script at your own risk.
+# https://wiki.archlinux.org/title/preload
 
 clear
 echo " ____           _                 _  "
