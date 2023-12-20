@@ -52,7 +52,7 @@ mkfs.ext4 -LF home /dev/$sda3 #Optional
 
 mount /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home}
-mount -t ext4 -o defaults,noatime /dev/$sda3 /home
+mount -t ext4 -o defaults,noatime /dev/$sda3 /mnt/home
 mount /dev/$sda1 /mnt/boot/efi
 #mount -o compress=zstd:3,ssd,noatime,subvol=@ /dev/$sda2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
