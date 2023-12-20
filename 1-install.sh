@@ -43,7 +43,7 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # Format partitions
 # ------------------------------------------------------
 mkfs.fat -F 32 /dev/$sda1 ;
-mkfs.ext4 -L Arch-Hyprland /dev/$sda2
+mkfs.ext4 -L Arch-root /dev/$sda2
 mkfs.ext4 -L home /dev/$sda3
 #mkfs.btrfs -f /dev/$sda2
 #mkfs.btrfs -f /dev/$sda3
@@ -53,13 +53,14 @@ mkfs.ext4 -L home /dev/$sda3
 mount /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home}
 mount -o defaults,noatime /dev/$sda3 /home
+mount /dev/$sda1 /mnt/boot/efi
 #mount -o compress=zstd:3,ssd,noatime,subvol=@ /dev/$sda2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
 #mount -o compress=zstd:3,ssd,noatime,subvol=@cache /dev/$sda2 /mnt/var/cache
 #mount -o compress=zstd:3,ssd,noatime,subvol=@home /dev/$sda2 /mnt/home
 #mount -o compress=zstd:3,ssd,noatime,subvol=@snapshots /dev/$sda2 /mnt/.snapshots
 #mount -o compress=zstd:3,ssd,noatime,subvol=@log /dev/$sda2 /mnt/var/log
-mount /dev/$sda1 /mnt/boot/efi
+
 # mkdir /mnt/vm
 # mount /dev/$sda3 /mnt/vm
 ---------------------------------------------------------
@@ -68,7 +69,7 @@ mount /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base base-devel git linux linux-firmware linux-zen linux-zen-headers micro nano openssh reflector rsync amd-ucode
+pacstrap -K /mnt base base-devel git linux linux-firmware linux-zen linux-zen-headers micro openssh reflector rsync amd-ucode
 
 # ------------------------------------------------------
 # Generate fstab
