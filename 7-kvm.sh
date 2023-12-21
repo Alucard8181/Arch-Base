@@ -48,7 +48,7 @@ sudo systemctl start libvirtd
 # ------------------------------------------------------
 echo "Manual steps required:"
 echo "Open sudo micro /etc/libvirt/qemu.conf"
-echo "Uncomment and add your user name to user and group."
+echo "Uncomment and add your user name to user and group. (Around line 519,523)"
 echo 'user = "your username"'
 echo 'group = "your username"'
 read -p "Press any key to open qemu.conf: " c

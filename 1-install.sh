@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#https://github.com/Alucard8181/Arch-Base
 loadkeys hu
 setfont ter-v18n
 clear
@@ -98,3 +98,4 @@ cp snapshot.sh /mnt/archinstall/
 # ------------------------------------------------------
 #arch-chroot /mnt ./archinstall/2-configuration.sh
 arch-chroot /mnt
+./archinstall/2-configuration.sh
