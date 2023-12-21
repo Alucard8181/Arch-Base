@@ -71,7 +71,7 @@ mount /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base base-devel git linux linux-firmware linux-zen linux-zen-headers micro openssh reflector rsync amd-ucode
+pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware linux-zen linux-zen-headers micro openssh reflector rsync amd-ucode
 
 # ------------------------------------------------------
 # Generate fstab
@@ -92,10 +92,10 @@ cp 5-timeshift.sh /mnt/archinstall/
 cp 6-preload.sh /mnt/archinstall/
 cp 7-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
-
+chmod +x /mnt/archinstall/ 2-configuration.sh 3-yay.sh 4-zram.sh 5-timeshift.sh 6-preload.sh 7-kvm.sh snapshot.sh
 # ------------------------------------------------------
 # Chroot to installed sytem
 # ------------------------------------------------------
-#arch-chroot /mnt ./archinstall/2-configuration.sh
-arch-chroot /mnt
-./archinstall/2-configuration.sh
+arch-chroot /mnt ./archinstall/2-configuration.sh
+#arch-chroot /mnt
+#./archinstall/2-configuration.sh
