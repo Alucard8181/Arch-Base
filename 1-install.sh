@@ -10,15 +10,13 @@ echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
 echo "By Tuxacard (2023)"
-echo "Forfed from Stephan Raabe-s work"
+echo "Forked from Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
 echo "Take care the partitions first !"
 echo "-----------------------------------------------------"
 echo ""
 echo "Warning: Run this script at your own risk."
-
-pacman -Syy
 
 # # Maybe it's required to install the current archlinux keyring
 # if the installation of git fails. Uncomment if needed.
@@ -30,10 +28,8 @@ pacman -Syy
 # ------------------------------------------------------
 #timedatectl list-timezones | grep Bud
 timedatectl set-timezone Europe/Budapest
-
-pacman --noconfirm -S reflector
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Syy
+pacman -Sy
 
 # ------------------------------------------------------
 # Enter partition names
@@ -49,9 +45,9 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-mkfs.fat -F 32 /dev/$sda1
-mkfs.ext4 -LF Arch-root /dev/$sda2
-mkfs.ext4 -LF home /dev/$sda3 #Optional
+#mkfs.fat -F 32 /dev/$sda1
+#mkfs.ext4 -L Arch-root /dev/$sda2
+#mkfs.ext4 -L home /dev/$sda3
 #mkfs.btrfs -f /dev/$sda2
 #mkfs.btrfs -f /dev/$sda3
 
@@ -100,5 +96,5 @@ cp snapshot.sh /mnt/archinstall/
 # ------------------------------------------------------
 # Chroot to installed sytem
 # ------------------------------------------------------
-arch-chroot /mnt ./archinstall/2-configuration.sh
-
+#arch-chroot /mnt ./archinstall/2-configuration.sh
+arch-chroot /mnt
