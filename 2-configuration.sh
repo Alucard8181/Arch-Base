@@ -7,7 +7,7 @@
 #  \____\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
 #                         |___/                                   
 # By Tuxacard (2023)
-# Forfked from Stephan Raabe-s work
+#
 # ------------------------------------------------------
 pause 2
 clear
@@ -70,7 +70,7 @@ clear
 # ------------------------------------------------------
 # Add User
 # ------------------------------------------------------
-echo "Add user $USERNAME"
+echo "Adding user $USERNAME"
 useradd -m -G wheel $USERNAME
 passwd $USERNAME
 
@@ -113,7 +113,7 @@ echo "Uncomment %wheel group in sudoers (around line 108):"
 echo "Before: #%wheel ALL=(ALL:ALL) ALL"
 echo "After:  %wheel ALL=(ALL:ALL) ALL"
 echo ""
-read -p "Open sudoers now?" c
+read -p "Opening sudoers now." c
 EDITOR=micro sudo -E visudo
 usermod -aG wheel $USERNAME
 

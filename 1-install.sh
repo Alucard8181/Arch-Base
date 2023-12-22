@@ -1,5 +1,5 @@
 #!/bin/bash
-#https://github.com/Alucard8181/Arch-Base
+
 loadkeys hu
 setfont ter-v18n
 clear
@@ -10,14 +10,14 @@ echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
 echo "By Tuxacard (2023)"
-echo "Forked from Stephan Raabe-s work"
+echo ""
 echo ""
 echo "-----------------------------------------------------"
 echo "Take care the partitions first !"
 echo "-----------------------------------------------------"
 echo ""
 echo "Warning: Run this script at your own risk."
-
+pause 5
 # # Maybe it's required to install the current archlinux keyring
 # if the installation of git fails. Uncomment if needed.
 #pacman -S archlinux-keyring
@@ -45,8 +45,8 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-#mkfs.fat -F 32 /dev/$sda1
-#mkfs.ext4 -L Arch-root /dev/$sda2
+mkfs.fat -F 32 /dev/$sda1
+mkfs.ext4 -L Arch-Root /dev/$sda2
 #mkfs.ext4 -L home /dev/$sda3
 #mkfs.btrfs -f /dev/$sda2
 #mkfs.btrfs -f /dev/$sda3
@@ -92,10 +92,15 @@ cp 5-timeshift.sh /mnt/archinstall/
 cp 6-preload.sh /mnt/archinstall/
 cp 7-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
-chmod +x /mnt/archinstall/ 2-configuration.sh 3-yay.sh 4-zram.sh 5-timeshift.sh 6-preload.sh 7-kvm.sh snapshot.sh
+chmod +x /mnt/archinstall/2-configuration.sh
+chmod +x /mnt/archinstall/3-yay.sh
+chmod +x /mnt/archinstall/4-zram.sh
+chmod +x /mnt/archinstall/5-timeshift.sh
+chmod +x /mnt/archinstall/6-preload.sh
+chmod +x /mnt/archinstall/7-kvm.sh
+chmod +x /mnt/archinstall/snapshot.sh
+
 # ------------------------------------------------------
 # Chroot to installed sytem
 # ------------------------------------------------------
 arch-chroot /mnt ./archinstall/2-configuration.sh
-#arch-chroot /mnt
-#./archinstall/2-configuration.sh
