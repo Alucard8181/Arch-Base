@@ -53,10 +53,10 @@ mkfs.ext4 -L Arch-Root /dev/$sda2
 
 ---------------------------------------------------------
 
-mount /dev/$sda2 /mnt
+mount -t ext4 -o defaults,noatime /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home}
 mount -t ext4 -o defaults,noatime /dev/$sda3 /mnt/home
-mount /dev/$sda1 /mnt/boot/efi
+mount -t ext4 -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 #mount -o compress=zstd:3,ssd,noatime,subvol=@ /dev/$sda2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
 #mount -o compress=zstd:3,ssd,noatime,subvol=@cache /dev/$sda2 /mnt/var/cache
@@ -79,7 +79,7 @@ pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware linux-ze
 genfstab -U /mnt >> /mnt/etc/fstab
 echo 'tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0' >> /mnt/etc/fstab
 cat /mnt/etc/fstab
-read -p "I hope this is right......" c
+read -p "Just look what have you made me done......" c
 
 # ------------------------------------------------------
 # Install configuration scripts
