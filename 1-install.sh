@@ -10,16 +10,17 @@ echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
 echo "By Tuxacard (2023)"
-echo ""
+echo "This script was Inspired by Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
-echo "Take care the partitions first !"
+echo "Take care the Disk layout first !"
 echo "-----------------------------------------------------"
 echo ""
 echo "Warning: Run this script at your own risk."
-pause 5
+read -p "Find the 'Any key' and please press it'" c
 # # Maybe it's required to install the current archlinux keyring
 # if the installation of git fails. Uncomment if needed.
+#pacman -Sy
 #pacman -S archlinux-keyring
 #pacman -Syy
 
@@ -47,27 +48,14 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 mkfs.fat -F 32 /dev/$sda1
 mkfs.ext4 -L Arch-Root /dev/$sda2
-#mkfs.ext4 -L home /dev/$sda3
-#mkfs.btrfs -f /dev/$sda2
-#mkfs.btrfs -f /dev/$sda3
-
----------------------------------------------------------
-
-mount -t ext4 -o defaults,noatime /dev/$sda2 /mnt
+mkfs.ext4 -L Home /dev/$sda3
+#-------------------------------------------------------
+# Mounting partitions
+# ------------------------------------------------------
+mount -o defaults,noatime /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home}
-mount -t ext4 -o defaults,noatime /dev/$sda3 /mnt/home
-mount -t ext4 -o defaults,noatime /dev/$sda1 /mnt/boot/efi
-#mount -o compress=zstd:3,ssd,noatime,subvol=@ /dev/$sda2 /mnt
-#mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
-#mount -o compress=zstd:3,ssd,noatime,subvol=@cache /dev/$sda2 /mnt/var/cache
-#mount -o compress=zstd:3,ssd,noatime,subvol=@home /dev/$sda2 /mnt/home
-#mount -o compress=zstd:3,ssd,noatime,subvol=@snapshots /dev/$sda2 /mnt/.snapshots
-#mount -o compress=zstd:3,ssd,noatime,subvol=@log /dev/$sda2 /mnt/var/log
-# mkdir /mnt/vm
-# mount /dev/$sda3 /mnt/vm
----------------------------------------------------------
-
-
+mount -o defaults,noatime /dev/$sda3 /mnt/home
+mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
