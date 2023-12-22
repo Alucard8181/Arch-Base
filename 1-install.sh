@@ -15,7 +15,7 @@ echo ""
 echo "-----------------------------------------------------"
 echo "Take care the Disk layout first !"
 echo "-----------------------------------------------------"
-echo "Test Commit"
+echo ""
 echo " !! Warning: Run this script at your own risk. !!"
 echo ""
 read -p "Find the 'Any key' and please press it'" c
