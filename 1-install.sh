@@ -70,7 +70,7 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 #mkfs.fat -F 32 /dev/$sda1;
 #mkfs.btrfs -f /dev/$sda2
-# mkfs.btrfs -f /dev/$sda3
+#mkfs.btrfs -f /dev/$sda3
 # ------------------------------------------------------
 # Mount points for btrfs
 # ------------------------------------------------------
@@ -98,14 +98,23 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware linux-zen linux-zen-headers micro openssh reflector rsync amd-ucode
 
+EDITOR=micro
 # ------------------------------------------------------
 # Generate fstab
 # ------------------------------------------------------
 genfstab -U /mnt >> /mnt/etc/fstab
 echo 'tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0' >> /mnt/etc/fstab
 cat /mnt/etc/fstab
-read -p "Just look what have you made me done......" c
-
+echo "Just look what have you made me done......"
+echo "Is This ok?  (  y or n )  ( If not i'am opening $EDITOR for you. )"
+read FSTAB
+if
+        [[ $FSTAB == "y" || $FSTAB == "Y" ]]; then
+        echo "Cool! :) "
+        slep 1
+else
+        $EDITOR /mnt/etc/fstab
+fi
 # ------------------------------------------------------
 # Install configuration scripts
 # ------------------------------------------------------
