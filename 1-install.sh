@@ -160,13 +160,6 @@ cp 5-timeshift.sh /mnt/archinstall/
 cp 6-preload.sh /mnt/archinstall/
 cp 7-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
-chmod +x /mnt/archinstall/2-configuration.sh
-chmod +x /mnt/archinstall/3-yay.sh
-chmod +x /mnt/archinstall/4-zram.sh
-chmod +x /mnt/archinstall/5-timeshift.sh
-chmod +x /mnt/archinstall/6-preload.sh
-chmod +x /mnt/archinstall/7-kvm.sh
-chmod +x /mnt/archinstall/snapshot.sh
 
 # ------------------------------------------------------
 # Chroot to installed sytem
