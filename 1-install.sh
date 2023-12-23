@@ -28,10 +28,16 @@ read -p "Find the 'Any key' and please press it'" c
 # ------------------------------------------------------
 # Sync time
 # ------------------------------------------------------
-#timedatectl list-timezones | grep Bud
+#I case if you want to determine you time zone run:
+#timedatectl list-timezones | grep Bud ( Or what ever city you in )
 timedatectl set-timezone Europe/Budapest
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Sy
+sed -i '/#Color/c\Color' /etc/pacman.conf
+sed -i '/#ParallelDownloads = 5/c\ParallelDownloads = 10' /etc/pacman.conf
+sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
+sed -i '#[multilib]/c\[multilib]' /etc/pacman.conf
+sed -i '/#Include = /etc/pacman.d/mirrorlist/c\Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+pacman -Syy
 
 # ------------------------------------------------------
 # Enter partition names
@@ -50,9 +56,9 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-mkfs.fat -F 32 /dev/$sda1
-mkfs.ext4 -L Arch-Root /dev/$sda2
-mkfs.ext4 -L Home /dev/$sda3
+mkfs.fat -F 32 /dev/$SDA1
+mkfs.ext4 -L Arch-Root /dev/$SDA2
+mkfs.ext4 -L Home /dev/$SDA3
 #-------------------------------------------------------
 # Mount points for ext4
 # ------------------------------------------------------
@@ -68,9 +74,9 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-#mkfs.fat -F 32 /dev/$sda1;
-#mkfs.btrfs -f /dev/$sda2
-#mkfs.btrfs -f /dev/$sda3
+#mkfs.fat -F 32 /dev/$SDA1
+#mkfs.btrfs -f /dev/$SDA2
+#mkfs.btrfs -f /dev/$SDA3
 # ------------------------------------------------------
 # Mount points for btrfs
 # ------------------------------------------------------
@@ -96,7 +102,9 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware linux-zen linux-zen-headers micro openssh reflector rsync amd-ucode
+lscpu | grep "Vendor ID"
+
+pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync amd-ucode
 
 EDITOR=micro
 # ------------------------------------------------------
@@ -111,7 +119,7 @@ read FSTAB
 if
         [[ $FSTAB == "y" || $FSTAB == "Y" ]]; then
         echo "Cool! :) "
-        slep 1
+        sleep 1
 else
         $EDITOR /mnt/etc/fstab
 fi
