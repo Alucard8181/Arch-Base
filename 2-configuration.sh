@@ -37,7 +37,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez blueman bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call dnsmasq openbsd-netcat ipset ufw flatpak nss-mdns acpid os-prober ntfs-3g terminus-font htop mc haruna zip unzip neofetch duf pacman-contrib inxi sddm yt-dlp micro zsh zsh-completions xf86-video-amdgpu
+pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez blueman bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call dnsmasq openbsd-netcat ipset ufw flatpak nss-mdns acpid os-prober ntfs-3g terminus-font htop mc haruna zip unzip neofetch duf pacman-contrib inxi sddm yt-dlp micro tldr zsh zsh-completions xf86-video-amdgpu
 
 # ------------------------------------------------------
 # set lang utf8 US
