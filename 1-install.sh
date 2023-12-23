@@ -9,11 +9,11 @@ echo "  / _ \ | '__/ __| '_ \   | || '_ \/ __| __/ _' | | |"
 echo " / ___ \| | | (__| | | |  | || | | \__ \ || (_| | | |"
 echo "/_/   \_\_|  \___|_| |_| |___|_| |_|___/\__\__,_|_|_|"
 echo ""
+echo ""
 echo "By Tuxacard (2023)"
-echo "This script was Inspired by Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
-echo "Take care the Disk layout first !"
+echo "Please take care the Disk(s) layout first !"
 echo "-----------------------------------------------------"
 echo ""
 echo " !! Warning: Run this script at your own risk. !!"
@@ -35,8 +35,20 @@ reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 sed -i '/#Color/c\Color' /etc/pacman.conf
 sed -i '/#ParallelDownloads = 5/c\ParallelDownloads = 10' /etc/pacman.conf
 sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
-sed -i '#[multilib]/c\[multilib]' /etc/pacman.conf
-sed -i '/#Include = /etc/pacman.d/mirrorlist/c\Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
+echo "Do you want to have multilib repoistory enable?  ( For 32bit aplications )  (  y or n )  ( If yes i'am opening $EDITOR for you. )"
+read PACMAN
+if
+        [[ $PACMAN == "y" || $PACMAN == "Y" ]]; then
+        print "#[multilib]
+                    #Include = /etc/pacman.d/mirrorlist
+                    Just delete the # char
+                    Find it around line 91 and 92"
+        read -p "Press any key to edit" c
+        $EDITOR /etc/pacman.conf
+else
+       echo "Moveing on....."
+       sleep 1
+fi
 pacman -Syy
 
 # ------------------------------------------------------
@@ -44,21 +56,30 @@ pacman -Syy
 # ------------------------------------------------------
 clear
 lsblk
+Echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank'"
 read -p "Enter the name of the EFI partition (eg. sda1): " sda1
 read -p "Enter the name of the ROOT partition (eg. sda2): " sda2
 read -p "Enter the name of the HOME partition (eg. sda3): " sda3
-# read -p "Enter the name of the VM partition (keep it empty if not required): " sda3
 
 # ------------------------------------------------------
 # In case of ext4
 # ------------------------------------------------------
-
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-mkfs.fat -F 32 /dev/$SDA1
-mkfs.ext4 -L Arch-Root /dev/$SDA2
-mkfs.ext4 -L Home /dev/$SDA3
+
+echo "Do you want to format the drives?  (  y or n )"
+read DRIVES
+if
+        [[ $DRIVES == "y" || $DRIVES == "Y" ]]; then
+        mkfs.fat -F 32 /dev/$SDA1
+        mkfs.ext4 -L Arch-Root /dev/$SDA2
+        mkfs.ext4 -L Home /dev/$SDA3
+else
+       echo "Moveing on....."
+       sleep 1
+fi
+
 #-------------------------------------------------------
 # Mount points for ext4
 # ------------------------------------------------------
@@ -102,10 +123,15 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-lscpu | grep "Vendor ID"
-
-pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync amd-ucode
-
+lscpu | grep "Vendor"
+echo "What type of CPU you have?  (  Please press " A/a " for AMD or  "I / i"  for INTEL)"
+read CPU
+if
+        [[ $CPU == "a" || $FSTAB == "A" ]]; then
+        pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync amd-ucode
+else
+        pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync intel-ucode
+fi
 EDITOR=micro
 # ------------------------------------------------------
 # Generate fstab
