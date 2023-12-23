@@ -32,9 +32,10 @@ read -p "Find the 'Any key' and please press it'" c
 #timedatectl list-timezones | grep Bud ( Or what ever city you in )
 timedatectl set-timezone Europe/Budapest
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-sed -i '/#Color/c\Color' /etc/pacman.conf
-sed -i '/#ParallelDownloads = 5/c\ParallelDownloads = 10' /etc/pacman.conf
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf
 sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
+clear
 echo "Do you want to have multilib repoistory enable?  ( For 32bit aplications )  (  y or n )  ( If yes i'am opening $EDITOR for you. )"
 read PACMAN
 if
@@ -47,7 +48,7 @@ if
         $EDITOR /etc/pacman.conf
 else
        echo "Moveing on....."
-       sleep 1
+       sleep 2
 fi
 pacman -Syy
 
@@ -56,7 +57,7 @@ pacman -Syy
 # ------------------------------------------------------
 clear
 lsblk
-Echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank'"
+echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank'"
 read -p "Enter the name of the EFI partition (eg. sda1): " sda1
 read -p "Enter the name of the ROOT partition (eg. sda2): " sda2
 read -p "Enter the name of the HOME partition (eg. sda3): " sda3
@@ -77,7 +78,7 @@ if
         mkfs.ext4 -L Home /dev/$SDA3
 else
        echo "Moveing on....."
-       sleep 1
+       sleep 2
 fi
 
 #-------------------------------------------------------
@@ -130,7 +131,13 @@ if
         [[ $CPU == "a" || $FSTAB == "A" ]]; then
         pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync amd-ucode
 else
+   if
+        [[ $CPU == "i" || $FSTAB == "I" ]]; then
         pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync intel-ucode
+else
+   echo "This was not "i" or "a" input. Exiting...."
+   exit
+   fi
 fi
 EDITOR=micro
 # ------------------------------------------------------
