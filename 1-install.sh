@@ -18,10 +18,10 @@ echo "-----------------------------------------------------"
 echo ""
 echo " !! Warning: Run this script at your own risk. !!"
 echo ""
-read -p "Find the 'Any key' and please press it'" c
+read -p "Find the 'Any key' and please press it..............." c
 # # Maybe it's required to install the current archlinux keyring
 # if the installation of git fails. Uncomment if needed.
-#pacman -Sy
+pacman -Sy
 #pacman -S archlinux-keyring
 #pacman -Syy
 
@@ -35,20 +35,25 @@ reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf
 sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
+#sed -i 's/#\[multilib]/\[multilib]/g' /etc/pacman.conf
 clear
-echo "Do you want to have multilib repoistory enable?  ( For 32bit aplications )  (  y or n )  ( If yes i'am opening $EDITOR for you. )"
-read PACMAN
+echo "Do you want to have multilib repoistory enable? ( For 32bit aplications )"
+read -p "If you fress yes then i'am opening the reitor for you.) (y/n)" PACMAN
 if
         [[ $PACMAN == "y" || $PACMAN == "Y" ]]; then
-        print "#[multilib]
+        pacman -S --noconfirm micro
+		EDITOR=micro
+        clear
+        echo "#[multilib]
                     #Include = /etc/pacman.d/mirrorlist
                     Just delete the # char
                     Find it around line 91 and 92"
         read -p "Press any key to edit" c
         $EDITOR /etc/pacman.conf
 else
-       echo "Moveing on....."
-       sleep 2
+		echo ""
+       	echo "Moving on....."
+       	sleep 1
 fi
 pacman -Syy
 
@@ -57,8 +62,9 @@ pacman -Syy
 # ------------------------------------------------------
 clear
 lsblk
-echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank'"
-read -p "Enter the name of the EFI partition (eg. sda1): " sda1
+echo "-------------------------------------------------------"
+echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank"
+read -p "Enter the name of the  EFI partition (eg. sda1): " sda1
 read -p "Enter the name of the ROOT partition (eg. sda2): " sda2
 read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 
@@ -68,16 +74,15 @@ read -p "Enter the name of the HOME partition (eg. sda3): " sda3
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-
-echo "Do you want to format the drives?  (  y or n )"
-read DRIVES
+echo "-------------------------------------------------------"
+read -p "Do you want to format the drives? (y/n)" DRIVES
 if
         [[ $DRIVES == "y" || $DRIVES == "Y" ]]; then
         mkfs.fat -F 32 /dev/$SDA1
         mkfs.ext4 -L Arch-Root /dev/$SDA2
         mkfs.ext4 -L Home /dev/$SDA3
 else
-       echo "Moveing on....."
+       echo "Moving on....."
        sleep 2
 fi
 
@@ -124,19 +129,19 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
+clear
 lscpu | grep "Vendor"
-echo "What type of CPU you have?  (  Please press " A/a " for AMD or  "I / i"  for INTEL)"
-read CPU
+read -p "What type of CPU you have? (Please press "a/A" for AMD or "i/I" for INTEL)" CPU
 if
-        [[ $CPU == "a" || $FSTAB == "A" ]]; then
+        [[ $CPU == "a" || $CPU == "A" ]]; then
         pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync amd-ucode
 else
    if
-        [[ $CPU == "i" || $FSTAB == "I" ]]; then
+        [[ $CPU == "i" || $CPU == "I" ]]; then
         pacstrap -K /mnt base base-devel git linux linux-headers linux-firmware micro openssh reflector rsync intel-ucode
 else
-   echo "This was not "i" or "a" input. Exiting...."
-   exit
+   		echo "This was not "i" or "a" input. Exiting...."
+   		exit
    fi
 fi
 EDITOR=micro
@@ -144,17 +149,25 @@ EDITOR=micro
 # Generate fstab
 # ------------------------------------------------------
 genfstab -U /mnt >> /mnt/etc/fstab
+clear
 echo 'tmpfs /tmp tmpfs defaults,noatime,mode=1777 0 0' >> /mnt/etc/fstab
 cat /mnt/etc/fstab
 echo "Just look what have you made me done......"
-echo "Is This ok?  (  y or n )  ( If not i'am opening $EDITOR for you. )"
-read FSTAB
+read -p "Is This ok? (If not i'am opening the editor for you.) (y/n)" FSTAB
 if
         [[ $FSTAB == "y" || $FSTAB == "Y" ]]; then
-        echo "Cool! :) "
+		echo ""
+        echo "Moving on....."
         sleep 1
 else
+	if
+		[[ $FSTAB == "n" || $FSTAB == "N" ]]; then
         $EDITOR /mnt/etc/fstab
+else
+		echo "This was not "y" or "n" input. Exiting...."
+		exit	
+	fi
+        
 fi
 # ------------------------------------------------------
 # Install configuration scripts
