@@ -37,7 +37,7 @@ sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf
 sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
 #sed -i 's/#\[multilib]/\[multilib]/g' /etc/pacman.conf
 clear
-echo "Do you want to have multilib repoistory enable? ( For 32bit aplications )"
+echo "Do you want to have multilib repoistory enable? ( For 32bit applications )"
 read -p "If you fress yes then i'am opening the reitor for you.) (y/n)" PACMAN
 if
         [[ $PACMAN == "y" || $PACMAN == "Y" ]]; then
@@ -83,7 +83,7 @@ if
         mkfs.ext4 -L Home /dev/$SDA3
 else
        echo "Moving on....."
-       sleep 2
+       sleep 1
 fi
 
 #-------------------------------------------------------
@@ -115,7 +115,7 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 #btrfs su cr /mnt/@log
 #umount /mnt
 
-#mount -o compress=zstd:1,noatime,subvol=@ /dev/$sda2 /mnt
+#mount -o compress=zstd:3,noatime,subvol=@ /dev/$sda2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
 #mount -o compress=zstd:3,noatime,subvol=@cache /dev/$sda2 /mnt/var/cache
 #mount -o compress=zstd:3,noatime,subvol=@home /dev/$sda2 /mnt/home
