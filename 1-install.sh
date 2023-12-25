@@ -32,31 +32,12 @@ pacman -Sy
 #timedatectl list-timezones | grep Bud ( Or what ever city you in )
 timedatectl set-timezone Europe/Budapest
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-sed -i 's/#Color/Color/g' /etc/pacman.conf
-sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf
+sed -i 's/#Color/Color/' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/' /etc/pacman.conf
 sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
-#sed -i 's/#\[multilib]/\[multilib]/g' /etc/pacman.conf
-clear
-echo "Do you want to have multilib repoistory enable? ( For 32bit applications )"
-read -p "If you fress yes then i'am opening the reitor for you.) (y/n)" PACMAN
-if
-        [[ $PACMAN == "y" || $PACMAN == "Y" ]]; then
-        pacman -S --noconfirm micro
-		EDITOR=micro
-        clear
-        echo "#[multilib]
-                    #Include = /etc/pacman.d/mirrorlist
-                    Just delete the # char
-                    Find it around line 91 and 92"
-        read -p "Press any key to edit" c
-        $EDITOR /etc/pacman.conf
-else
-		echo ""
-       	echo "Moving on....."
-       	sleep 1
-fi
+sed -i 's/#\[multilib]/\[multilib]/g' /etc/pacman.conf
+sed -i '/\[multilib]/a\Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
 pacman -Syy
-
 # ------------------------------------------------------
 # Enter partition names
 # ------------------------------------------------------
