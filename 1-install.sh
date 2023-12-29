@@ -47,9 +47,9 @@ clear
 lsblk
 echo "-------------------------------------------------------"
 echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank"
-read -p "Enter the name of the  EFI partition (eg. SDA1): " SDA1
-read -p "Enter the name of the ROOT partition (eg. SDA2): " SDA2
-read -p "Enter the name of the HOME partition (eg. SDA3): " SDA3
+read -p "Enter the name of the  EFI partition (eg. sda1): " SDA1
+read -p "Enter the name of the ROOT partition (eg. sda2): " SDA2
+read -p "Enter the name of the HOME partition (eg. sda3): " SDA3
 
 # ------------------------------------------------------
 # In case of ext4
