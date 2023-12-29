@@ -12,13 +12,15 @@ echo ""
 echo ""
 echo "By Tuxacard (2023)"
 echo ""
+echo "Inspired by Stephan Raabe-s work"
+echo ""
 echo "-----------------------------------------------------"
 echo "Please take care the Disk(s) layout first !"
 echo "-----------------------------------------------------"
 echo ""
 echo " !! Warning: Run this script at your own risk. !!"
 echo ""
-read -p "Find the 'Any key' and please press it..............." c
+sleep 4
 # # Maybe it's required to install the current archlinux keyring
 # if the installation of git fails. Uncomment if needed.
 pacman -Sy
@@ -45,9 +47,9 @@ clear
 lsblk
 echo "-------------------------------------------------------"
 echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank"
-read -p "Enter the name of the  EFI partition (eg. sda1): " sda1
-read -p "Enter the name of the ROOT partition (eg. sda2): " sda2
-read -p "Enter the name of the HOME partition (eg. sda3): " sda3
+read -p "Enter the name of the  EFI partition (eg. sda1): " SDA1
+read -p "Enter the name of the ROOT partition (eg. sda2): " SDA2
+read -p "Enter the name of the HOME partition (eg. sda3): " SDA3
 
 # ------------------------------------------------------
 # In case of ext4
@@ -143,6 +145,7 @@ if
 else
 	if
 		[[ $FSTAB == "n" || $FSTAB == "N" ]]; then
+		pacman --noconfirm -S micrp
         $EDITOR /mnt/etc/fstab
 else
 		echo "This was not "y" or "n" input. Exiting...."
