@@ -28,7 +28,11 @@ hwclock --systohc
 echo "Installing and setting up reflector..."
 pacman --noconfirm -S reflector
 reflector -c Hungary -p https -a 6 --sort rate --save /etc/pacman.d/mirrorlist
-
+sed -i 's/#Color/Color/' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 10/' /etc/pacman.conf
+sed -i '/ParallelDownloads = 10/a\ILoveCandy' /etc/pacman.conf
+sed -i 's/#\[multilib]/\[multilib]/g' /etc/pacman.conf
+sed -i '/\[multilib]/a\Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf
 # ------------------------------------------------------
 # Synchronize mirrors
 # ------------------------------------------------------
