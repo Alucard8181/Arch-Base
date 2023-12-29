@@ -5,9 +5,9 @@
 #   | |/ ___ \| |  
 #   |_/_/   \_\_|  
 #                 
-# by Stephan Raabe (2023)
+# By Tuxacard (2023)
 # ------------------------------------------------------
-# Install Script for Yay
+# Install Script for Yay ( Pre-compiled. )
 # ------------------------------------------------------
 # Name: yay Install Script
 # DESC: All required steps to install yay
@@ -37,8 +37,9 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
-git clone https://aur.archlinux.org/yay-git.git
-cd yay-git
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
 makepkg -si
-
+cd ..
+rm -rf ./yay-bin
 echo "DONE!"
