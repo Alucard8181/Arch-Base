@@ -145,7 +145,7 @@ if
 else
 	if
 		[[ $FSTAB == "n" || $FSTAB == "N" ]]; then
-		pacman --noconfirm -S micrp
+		pacman --noconfirm -S micro
         $EDITOR /mnt/etc/fstab
 else
 		echo "This was not "y" or "n" input. Exiting...."
