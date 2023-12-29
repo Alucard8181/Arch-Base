@@ -47,9 +47,9 @@ clear
 lsblk
 echo "-------------------------------------------------------"
 echo "If you don't want to use some of the offered drives for any reason, just press enter and leave it blank"
-read -p "Enter the name of the  EFI partition (eg. sda1): " SDA1
-read -p "Enter the name of the ROOT partition (eg. sda2): " SDA2
-read -p "Enter the name of the HOME partition (eg. sda3): " SDA3
+read -p "Enter the name of the  EFI partition (eg. SDA1): " SDA1
+read -p "Enter the name of the ROOT partition (eg. SDA2): " SDA2
+read -p "Enter the name of the HOME partition (eg. SDA3): " SDA3
 
 # ------------------------------------------------------
 # In case of ext4
@@ -72,10 +72,10 @@ fi
 #-------------------------------------------------------
 # Mount points for ext4
 # ------------------------------------------------------
-mount -o defaults,noatime /dev/$sda2 /mnt
+mount -o defaults,noatime /dev/$SDA2 /mnt
 mkdir -p /mnt/{boot/efi,home}
-mount -o defaults,noatime /dev/$sda3 /mnt/home
-mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
+mount -o defaults,noatime /dev/$SDA3 /mnt/home
+mount -o defaults,noatime /dev/$SDA1 /mnt/boot/efi
 
 # ------------------------------------------------------
 # In case of BTRFS
@@ -90,7 +90,7 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 # ------------------------------------------------------
 # Mount points for btrfs
 # ------------------------------------------------------
-#mount /dev/$sda2 /mnt
+#mount /dev/$SDA2 /mnt
 #btrfs su cr /mnt/@
 #btrfs su cr /mnt/@cache
 #btrfs su cr /mnt/@home
@@ -98,16 +98,16 @@ mount -o defaults,noatime /dev/$sda1 /mnt/boot/efi
 #btrfs su cr /mnt/@log
 #umount /mnt
 
-#mount -o compress=zstd:3,noatime,subvol=@ /dev/$sda2 /mnt
+#mount -o compress=zstd:3,noatime,subvol=@ /dev/$SDA2 /mnt
 #mkdir -p /mnt/{boot/efi,home,.snapshots,var/{cache,log}}
-#mount -o compress=zstd:3,noatime,subvol=@cache /dev/$sda2 /mnt/var/cache
-#mount -o compress=zstd:3,noatime,subvol=@home /dev/$sda2 /mnt/home
-#mount -o compress=zstd:3,noatime,subvol=@log /dev/$sda2 /mnt/var/log
-#mount -o compress=zstd:3,noatime,subvol=@snapshots /dev/$sda2 /mnt/.snapshots
+#mount -o compress=zstd:3,noatime,subvol=@cache /dev/$SDA2 /mnt/var/cache
+#mount -o compress=zstd:3,noatime,subvol=@home /dev/$SDA2 /mnt/home
+#mount -o compress=zstd:3,noatime,subvol=@log /dev/$SDA2 /mnt/var/log
+#mount -o compress=zstd:3,noatime,subvol=@snapshots /dev/$SDA2 /mnt/.snapshots
 
-#mount /dev/$sda1 /mnt/boot/efi
+#mount /dev/$SDA1 /mnt/boot/efi
 # mkdir /mnt/vm
-# mount /dev/$sda3 /mnt/vm
+# mount /dev/$SDA3 /mnt/vm
 
 # ------------------------------------------------------
 # Install base packages
