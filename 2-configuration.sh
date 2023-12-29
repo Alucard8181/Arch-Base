@@ -43,10 +43,10 @@ pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager netw
 # ------------------------------------------------------
 # Packages List
 # ------------------------------------------------------
-# grub						GNU GRand Unified Bootloader (2)
-# efibootmgr				Linux user-space application to modify the EFI Boot Manager
-# xdg-desktop-portal-wlr	xdg-desktop-portal backend for wlroots
-# networkmanager			Network connection manager and user applications
+# grub	                                     GNU GRand Unified Bootloader (2)
+# efibootmgr                          Linux user-space application to modify the EFI Boot Manager
+# xdg-desktop-portal-wlr    xdg-desktop-portal backend for wlroots
+# networkmanager                Network connection manager and user applications
 # network-manager-applet	Applet for managing network connections
 # dialog					A tool to display dialog boxes from shell scripts
 # wpa_supplicant			A utility providing key negotiation for WPA wireless networks
@@ -88,7 +88,8 @@ pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager netw
 # haruna					Video player built with Qt/QML on top of libmpv
 # zip						Compressor/archiver for creating and modifying zipfiles
 # unzip						For extracting and viewing files in .zip archives
-# neofetch					A CLI system information tool written in BASH that supports displaying images.(On Acrh Linux based sysems, even the kernel refuses to operate without this package)
+# neofetch					A CLI system information tool written in BASH that supports displaying images.
+# neofetch                (On Acrh Linux based sysems, even the kernel refuses to operate without this package)
 # duf						Disk Usage/Free Utility
 # pacman-contrib			Contributed scripts and tools for pacman systems
 # inxi						Full featured CLI system information tool 	2023-11-02 	
@@ -142,7 +143,7 @@ systemctl enable sshd
 systemctl enable avahi-daemon
 systemctl enable ufw
 systemctl enable acpid
-systemctl enable sddm
+#systemctl enable sddm
 
 # ------------------------------------------------------
 # Enable System Timers
@@ -161,7 +162,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # ------------------------------------------------------
 # Before: BINARIES=()
 # After:  BINARIES=(setfont)
-sed -i 's/BINARIES=()/BINARIES=(setfont)/g' /etc/mkinitcpio.conf
+#sed -i 's/BINARIES=()/BINARIES=(setfont)/g' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
 # ------------------------------------------------------
