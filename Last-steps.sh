@@ -23,5 +23,4 @@ echo "alias tsc='snapshot.sh'" >> ~/.bashrc
 rm -f 2-configuration.sh
 rm Last-steps.sh
 
-echo "kvm and preload install script can be found at ~/"
-echo "type source .bashrc if you want to use ts now.."
+echo "kvm and preload install script can be found at ~/ Please reboot now."
