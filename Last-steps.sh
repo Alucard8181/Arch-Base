@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo chown $USER:$USER Last-steps.sh kvm.sh preload.sh
+
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
 makepkg -si
@@ -16,17 +18,10 @@ sudo systemctl start /dev/zram0
 
 yay --noconfirm -S timeshift
 sudo mv snapshot.sh /usr/local/bin/
+echo "alias tsc='snapshot.sh'" >> ~/.bashrc
 
-# echo 'alias tsc="snapshot.sh' >> ~/.bash.rc
+rm -f 2-configuration.sh
+rm Last-steps.sh
 
-rm 2-configuration.sh
-
-clear
-echo "     _                   "
-echo "  __| | ___  _ __   ___  "
-echo " / _' |/ _ \| '_ \ / _ \ "
-echo "| (_| | (_) | | | |  __/ "
-echo " \__,_|\___/|_| |_|\___| "
-echo "                         "
-echo ""
 echo "kvm and preload install script can be found at ~/"
+echo "type source .bashrc if you want to use ts now.."
