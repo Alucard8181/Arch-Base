@@ -13,8 +13,10 @@ pause 2
 clear
 KEYBOARDLAYOUT="hu"
 ZONEINFO="Europe/Budapest"
-HOSTNAME="Arch-Linux"
-USERNAME="alucard"
+read -p "What will be the host name?" HOSTNAME1
+HOSTNAME="$HOSTNAME1"
+read -p "What will be the user name?" USERNAME1
+USERNAME="$USERNAME1"
 
 # ------------------------------------------------------
 # Set System Time
@@ -42,7 +44,7 @@ pacman -Syy
 # Install Packages
 # ------------------------------------------------------
 
-pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez blueman bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call dnsmasq openbsd-netcat ipset ufw flatpak nss-mdns acpid os-prober ntfs-3g terminus-font htop mc haruna zip unzip neofetch duf pacman-contrib inxi yt-dlp micro tldr zsh zsh-completions xf86-video-amdgpu
+pacman --noconfirm -S grub efibootmgr xdg-desktop-portal-wlr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools avahi xdg-user-dirs xdg-utils gvfs gvfs-smb nfs-utils inetutils dnsutils bluez blueman bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call dnsmasq openbsd-netcat ipset ufw flatpak nss-mdns acpid os-prober ntfs-3g terminus-font htop mc haruna zip unzip neofetch duf pacman-contrib inxi yt-dlp micro tldr man-db xf86-video-amdgpu
 
 # ------------------------------------------------------
 # Packages List
@@ -181,14 +183,7 @@ read -p "Opening sudoers now." c
 EDITOR=micro sudo -E visudo
 usermod -aG wheel $USERNAME
 
-# ------------------------------------------------------
-# Copy installation scripts to home directory 
-# ------------------------------------------------------
-#cp /archinstall/3-yay.sh /home/$username
-#cp /archinstall/4-zram.sh /home/$username
-#cp /archinstall/5-timeshift.sh /home/$username
-#cp /archinstall/6-preload.sh /home/$username
-#cp /archinstall/snapshot.sh /home/$username
+cp /archinstall/* /home/$USERNAME
 
 clear
 echo "     _                   "
@@ -198,11 +193,4 @@ echo "| (_| | (_) | | | |  __/ "
 echo " \__,_|\___/|_| |_|\___| "
 echo "                         "
 echo ""
-echo "Please find the following additional installation scripts in your home directory:"
-echo "- yay AUR helper: 3-yay.sh"
-echo "- zram swap: 4-zram.sh"
-echo "- timeshift snapshot tool: 5-timeshift.sh"
-echo "- preload application cache: 6-preload.sh"
-echo "- KVM Install script: 7-kvm.sh"
-echo "Please exit & shutdown (shutdown -h now), remove the installation media and start again."
-echo "Important: Activate WIFI after restart with nmtui."
+echo "Please find the following additional installation scripts in /archinstall directory. Start Last-steps.sh to finish the install"
