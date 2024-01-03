@@ -18,14 +18,12 @@ echo "-----------------------------------------------------"
 echo "Please take care the Disk(s) layout first !"
 echo "-----------------------------------------------------"
 echo ""
-echo " !! Warning: Run this script at your own risk. !!"
+read -p " !! Warning: Run this script at your own risk. !! ( fdisk or cfdisk ) Press any key" C
 echo ""
 sleep 4
-# # Maybe it's required to install the current archlinux keyring
-# if the installation of git fails. Uncomment if needed.
 pacman -Sy
-#pacman -S archlinux-keyring
-#pacman -Syy
+pacman -S archlinux-keyring
+pacman -Syy
 
 # ------------------------------------------------------
 # Sync time
@@ -127,7 +125,6 @@ else
    		exit
    fi
 fi
-EDITOR=micro
 # ------------------------------------------------------
 # Generate fstab
 # ------------------------------------------------------
@@ -146,7 +143,7 @@ else
 	if
 		[[ $FSTAB == "n" || $FSTAB == "N" ]]; then
 		pacman --noconfirm -S micro
-        $EDITOR /mnt/etc/fstab
+        micro /mnt/etc/fstab
 else
 		echo "This was not "y" or "n" input. Exiting...."
 		exit	
