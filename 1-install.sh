@@ -15,14 +15,14 @@ echo ""
 echo "Inspired by Stephan Raabe-s work"
 echo ""
 echo "-----------------------------------------------------"
-echo "Please take care the Disk(s) layout first !"
+echo "Please take care the Disk(s) layout first ! ( fdisk or cfdisk )"
 echo "-----------------------------------------------------"
 echo ""
-read -p " !! Warning: Run this script at your own risk. !! ( fdisk or cfdisk ) Press any key" C
+read -p " !! Warning: Run this script at your own risk. !! Press any key" C
 echo ""
 sleep 4
 pacman -Sy
-pacman -S archlinux-keyring
+pacman --noconfirm -S archlinux-keyring
 pacman -Syy
 
 # ------------------------------------------------------
