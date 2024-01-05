@@ -151,7 +151,6 @@ systemctl enable ufw
 systemctl enable acpid
 
 sudo ufw enable
-sudo ufw allow ssh
 
 # ------------------------------------------------------
 # Enable System Timers
